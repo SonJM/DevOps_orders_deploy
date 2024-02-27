@@ -1,0 +1,19 @@
+server:
+  port: 8082
+
+spring:
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://localhost:3306/ordersys
+    username: admin
+    password:
+  jpa:
+    show-sql: true
+    database: mysql
+    database-platform: org.hibernate.dialect.MariaDBDialect
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+jwt:
+  expiration: 1800000  # 30 * 60 * 1000L
+  secretKey: asdfio230fj2398fdsfosewAW23jWj8381jsQs9dj1SCC0qj93djicducew092jcncNSJsjwi
