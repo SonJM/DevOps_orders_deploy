@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import javax.persistence.EntityNotFoundException;
-import java.util.HashMap;
 import java.util.Map;
 
 @RestControllerAdvice
