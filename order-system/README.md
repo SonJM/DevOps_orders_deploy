@@ -1,6 +1,6 @@
 ## 요구사항
 
-<span style="color: red">변경 가능</span>
+<span style="color: red">변경 가능 쿠쿸</span>
 <span style="color: blue">FK</span>
 - - -
 ### 도메인
