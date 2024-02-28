@@ -35,7 +35,7 @@ public class SecurityConfig {
                 .and()
                 .httpBasic().disable()
                 .authorizeRequests()
-                .antMatchers("/member/new", "/doLogin","/item/create", "/items", "/item/*/image")
+                .antMatchers("/member/new", "/", "/doLogin","/item/create", "/items", "/item/*/image")
 //                                  이 url은 로그인이 필요없다
                 .permitAll()
                 .anyRequest().authenticated() //나머지 로그인 필터를 적용하겠다

@@ -43,6 +43,11 @@ public class ItemController {
         return new ResponseEntity<>(itemResDtos, HttpStatus.OK);
     }
 
+    @GetMapping("/")
+    public String home(){
+        return "OK";
+    }
+
     @GetMapping("/item/{id}/image")
     public ResponseEntity<Resource> getImage(@PathVariable Long id){
         Resource resource = itemService.getImage(id);
