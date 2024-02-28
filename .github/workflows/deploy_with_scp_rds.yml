@@ -53,3 +53,30 @@ jobs:
           --spring.datasource.url=jdbc:mariadb://${{ secrets.DB_HOST }}:3306/orderschema \
           --spring.datasource.username=${{ secrets.DB_USERNAME }} \
           --spring.datasource.password=${{ secrets.DB_PASSWORD }} > /home/${{ secrets.EC2_USERNAME }}/app.log 2>&1 &
+
+    - name: Copy jar to ec2
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ secrets.EC2_HOST2 }}
+        username: ${{ secrets.EC2_USERNAME }}
+        key: ${{ secrets.EC2_SSH_KEY }}
+        source: "./order-system/build/libs/*.jar"
+        target: "/home/${{ secrets.EC2_USERNAME }}"
+
+    - name: Install java and Run jar on ec2
+      uses: appleboy/ssh-action@master
+      with: 
+        host: ${{ secrets.EC2_HOST2 }}
+        username: ${{ secrets.EC2_USERNAME }}
+        key: ${{ secrets.EC2_SSH_KEY }}
+        script: |
+          if ! type java > /dev/null; then 
+            sudo apt update && sudo apt install openjdk-11-jdk -y
+          else
+            echo "java is already installed"
+          fi
+          sudo killall java || true
+          nohup java -jar /home/${{ secrets.EC2_USERNAME }}/order-system/build/libs/*.jar \
+          --spring.datasource.url=jdbc:mariadb://${{ secrets.DB_HOST }}:3306/orderschema \
+          --spring.datasource.username=${{ secrets.DB_USERNAME }} \
+          --spring.datasource.password=${{ secrets.DB_PASSWORD }} > /home/${{ secrets.EC2_USERNAME }}/app.log 2>&1 &
