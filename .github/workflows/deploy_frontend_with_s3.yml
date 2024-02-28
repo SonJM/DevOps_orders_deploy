@@ -14,13 +14,15 @@ jobs:
     - name: setup node.js
       uses: actions/setup-node@v2
       with:
-        node-versoin: '20'
+        node-version: '20'
 
     - name: npm install
-      run: npm install
+      working-directory: ./order_front
+      run: npm i
 
     - name: npm build
-      run: npm build
+      working-directory: ./order_front
+      run: npm run build
 
     - name: setup aws cli
       uses: aws-actions/configure-aws-credentials@v2
@@ -31,4 +33,4 @@ jobs:
 
     - name: deploy to s3
       run: |
-        aws s3 cp ./dist s3://order-system-vue-sjm/ --recursive
+        aws s3 cp ./order_front/dist s3://order-system-vue-sjm/ --recursive
