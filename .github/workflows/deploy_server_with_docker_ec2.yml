@@ -32,3 +32,25 @@ jobs:
 
     - name: Push Docker Image to DockerHub
       run: docker push blisle/order_backend:v2
+
+    - name: ec2 ssh login and docker run
+      uses: appleboy/ssh-action@master
+      with: 
+        host: ${{ secrets.EC2_HOST1 }}
+        username: ${{ secrets.EC2_USERNAME }}
+        key: ${{ secrets.EC2_SSH_KEY }}
+        # type docker : docker명령어가 현재 시스템에 존재하는지를 확인
+        script: |
+          if ! type docker ; then > /dev/null; then
+            curl -s https://get.docker.com -o get-docker.sh
+            sudo sh get-docker.sh
+          fi
+          sudo docker login --username ${{ secrets.DOKER_USERNAME }} --password ${{secrets.DOCKER_PASSWORD}};
+
+          sudo docker pull blisle/order_backend:v2
+          sudo docker rm  -f order-backed || true
+
+          sudo docker run -d --name order-backend -p 80:8080 \
+          -e SPRING_DATASOURCE_URL=jdbc:mariadb://${{ secrets.DB_HOST }}:3306/ordersys
+          -e SPRING_DATASOURCE_USERNAME=${{ secrets.DB_USERNAME }}
+          -e SPRING_DATASOURCE_PASSWORD=${{ secrets.DB_PASSWORD }} blisle/order_backend:v2
