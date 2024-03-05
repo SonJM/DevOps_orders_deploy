@@ -6,7 +6,7 @@ name: Deploy to Ec2 With Jar
 on:
   push:
       branches:
-        - master
+        - dev
 
 jobs:
 # 작업의 이름 지정
