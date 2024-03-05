@@ -41,7 +41,7 @@ jobs:
         key: ${{ secrets.EC2_SSH_KEY }}
         # type docker : docker명령어가 현재 시스템에 존재하는지를 확인
         script: |
-          if ! type docker ; then > /dev/null; then
+          if ! type docker > /dev/null; then
             curl -s https://get.docker.com -o get-docker.sh
             sudo sh get-docker.sh
           fi
