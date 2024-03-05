@@ -31,4 +31,4 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Push Docker Image to DockerHub
-      run: docker push -t blisle/order_backend:v2 .
+      run: docker push blisle/order_backend:v2
