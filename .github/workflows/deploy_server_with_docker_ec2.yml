@@ -48,7 +48,7 @@ jobs:
           sudo docker login --username ${{ secrets.DOCKER_USERNAME }} --password-stdin ${{secrets.DOCKER_PASSWORD}};
 
           sudo docker pull blisle/order_backend:v2
-          sudo docker rm  -f order-backed || true
+          sudo docker rm -f order-backed || true
 
           sudo docker run -d --name order-backend -p 80:8080 \
           -e SPRING_DATASOURCE_URL=jdbc:mariadb://${{ secrets.DB_HOST }}:3306/ordersys \
